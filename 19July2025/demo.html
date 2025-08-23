@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+  </head>
+  <body>
+    <form id="registerForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" />
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password" />
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" />
+      <label>Single?</label>
+      <select id="single">
+        <option value="true">yes</option>
+        <option value="false">no</option>
+      </select>
+
+      <span id="freeTimeHolder">
+        <label>When Free?</label>
+        <input id="freeTimeInput" />
+      </span>
+      <input type="submit" />
+    </form>
+  </body>
+  <script>
+    document.querySelector("#single").addEventListener("change", (e) => {
+      console.log(e.target.value);
+      if (e.target.value === "true") {
+        document.querySelector(
+          "#freeTimeHolder"
+        ).innerHTML = `<label>When Free?</label>
+        <input id="freeTimeInput"></input>`;
+      } else {
+        document.querySelector("#freeTimeHolder").innerHTML = "";
+      }
+    });
+    document.querySelector("#registerForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      let usernameInput = document.querySelector("#username").value;
+      let passwordInput = document.querySelector("#password").value;
+      let ageInput = document.querySelector("#age").value;
+      let singleInput = document.querySelector("#single").value;
+      let freeTimeInput;
+      let inputObject = { usernameInput, passwordInput, ageInput };
+
+      //   check if  absent from lieu is chosen
+      console.log(singleInput);
+      if (singleInput === "true") {
+        freeTimeInput = document.querySelector("#freeTimeInput").value;
+        inputObject.freeTimeInput = freeTimeInput;
+      }
+
+      console.log("hihi", inputObject);
+      //   absent from lieu ,extra two fields to check
+      console.log(usernameInput, passwordInput, ageInput);
+
+      for (const [name, value] of Object.entries(inputObject)) {
+        if (!value) {
+          console.log(name, " is empty");
+        }
+      }
+    });
+  </script>
+</html>
